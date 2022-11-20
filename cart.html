@@ -13,7 +13,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
-    <div class="container">
+    <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,6 +29,16 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+              aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <li><a class="dropdown-item" type="button" href="cart.html">Mi carrito</a></li>
+              <li><a class="dropdown-item" type="button" href="my-profile.html">Mi perfil</a></li>
+              <li><a class="dropdown-item" type="button" onclick="clearUser()" href="index.html">Cerrar sesión</a></li>
+            </ul>
+          </div>
           <li class="nav-item">
           </li>
         </ul>
@@ -36,12 +46,146 @@
     </div>
   </nav>
   <main>
+    <div class="container" id="carrito">
+      <h3 class="text-center">Carrito de compras</h3>
+      <h5>Articulos a comprar</h5>
+      <table class="table">
+        <thead>
+          <tr id="table">
+            <th scope="col"></th>
+            <th scope="col">Nombre</th>
+            <th scope="col">costo</th>
+            <th scope="col">cantidad</th>
+            <th scope="col">subtotal</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" id="foto"></th>
+            <td id="nombre"></td>
+            <td id="costo"></td>
+            <td id="cantidad"> <input id="cant" type="number" style="width : 45px" min="0"
+                oninput="cantDinamic(this.value)"></input></td>
+            <td id="subTotal"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <h5>Tipo de envio</h5>
+      <br>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="premiumEnvio" value="15">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Premium 2 a 5 dias (15%)
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="expresEnvio" value="7">
+        <label class="form-check-label" for="flexRadioDefault2">
+          Express 5 a 8 dias (7%)
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="standarEnvio" value="5" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+          Standard 12 a 15 dias (5%)
       </div>
     </div>
+    <br>
+    <div class="container">
+      <h5>Costos</h5>
+
+      <p class="form-control">Sub Total:USD<span id="costSubt"></span></p>
+      <p class="form-control">Costo de Envio:<span id="costEnv"></span></p>
+      <p class="form-control">Costo Total:<span id="costTot"></span></p>
+
+    </div>
+    <hr>
+    <div class="container">
+      <h5>Forma de pago</h5>
+      <p id="formaPago"> No ha seleccionado</p> <button type="button" data-bs-toggle="modal"
+        data-bs-target="#myModal">Seleccionar</button>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="myModal">Forma de pago</h5>
+
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form class="needs-validation">
+                <div class=" form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="tarjetaCredito"></input>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    Tarjeta de credito
+                  </label>
+                </div>
+                Numero de tarjeta
+                <input class='input-field' id="numTarget" disabled></input>
+                <table class='half-input-table'>
+                  <tr>
+                    <td> Vencimiento (DD/MM/AA)
+                      <input type="date" class='input-field' id="vencimiento" disabled></input>
+                    </td>
+                    <td>Codigo de seguridad
+                      <input class='input-field' maxlength="3" id="codSeg" disabled></input>
+                    </td>
+                  </tr>
+                </table>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="transfBancaria" checked>
+                  <label class="form-check-label" for="flexRadioDefault1">Transferencia bancaria</label>
+                </div>
+                <input class='input-field' placeholder="Numero de cuenta" id="numCount"></input>
+              </form>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h5>Direccion de envio</h5>
+      <form class="row g-3 needs-validation" novalidate>
+        <div class="d-none" id="alertDiv">
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustom01" class="form-label">Calle</label>
+          <input type="text" class="form-control" id="validationCustom01" value="" required>
+          <div class="valid-feedback">
+            Correcto!
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustom02" class="form-label">Numero</label>
+          <input type="text" class="form-control" id="validationCustom02" value="" required>
+          <div class="valid-feedback">
+            Correcto!
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustom03" class="form-label">Esquina</label>
+          <input type="text" class="form-control" id="validationCustom03" required>
+          <div class="valid-feedback">
+            Correcto!
+          </div>
+        </div>
+        <button class="w-100 btn btn-primary btn-lg" type="submit" id="finCount">Finalizar compra</button>
+      </form>
+    </div>
+    </div>
+    <div id="liveAlertPlaceholder"></div>
   </main>
+  <hr>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">

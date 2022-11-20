@@ -14,7 +14,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
-    <div class="container">
+    <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -30,19 +30,28 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
+          <div class="dropdown">
+            <button class="btn btn-secondary btn-sm dropdown-toggler" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <li><a class="dropdown-item" type="button" href="sell.html">Mi carrito</a></li>
+              <li><a class="dropdown-item" type="button" href="my-profile.html">Mi perfil</a></li>
+              <li><a class="dropdown-item" type="button" onclick="clearUser()" href="index.html">Cerrar sesión</a></li>
+            </ul>
+          </div>
           <li class="nav-item">
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <main class="pb-5 container">
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+  <div class="pb-5">
+    <div class="text-center p-4">
+      <h2>Productos</h2>
+      <p class="lead">Verás aquí todas los productos del sitio.</p>
     </div>
-  </main>
+  <main class = "container " id="cont">
+</main>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
